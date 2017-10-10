@@ -6,6 +6,10 @@ This means it is not fit for production.
 
 ## Usage
 
-'''
+```
 python3 top_downloader.py --help
-'''
+```
+
+You can choose between dtk50 and dtk100 maps, by selecting the product with the ```--product``` parameter.
+
+All maps are downloaded to your ```\tmp```folder or similar folders on non-linux machines.
