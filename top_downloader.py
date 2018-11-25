@@ -21,6 +21,7 @@ __version__ = '.'.join('%d' % p for p in version)
 A dict of product names and URLs
 """
 __products__ = {
+    'dtk25': 'https://www.opengeodata.nrw.de/produkte/geobasis/dtk/dtk25/dtk25pdf/',
     'dtk50': 'https://www.opengeodata.nrw.de/produkte/geobasis/dtk/dtk50/dtk50pdf/',
     'dtk100': 'https://www.opengeodata.nrw.de/produkte/geobasis/dtk/dtk100/dtk100pdf/',
 }
