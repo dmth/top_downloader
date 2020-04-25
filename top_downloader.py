@@ -1,6 +1,6 @@
 """
 This software is intended to bulk download maps from
-https://www.opengeodata.nrw.de/produkte/geobasis/dtk/
+https://www.opengeodata.nrw.de/produkte/geobasis/tk/
 
 """
 
@@ -14,7 +14,7 @@ import os
 """
 The version-number
 """
-version = (0, 0, 1)
+version = (0, 0, 2)
 __version__ = '.'.join('%d' % p for p in version)
 
 """
@@ -60,13 +60,14 @@ def get_files_from_index_json(index: str):
     Args:
         index: the json-document
 
-    Returns: An Array containing dicts which describe the downloadable file.
+    Returns: An array containing dicts which describe the downloadable file.
              The description consist of: name, size, timestamp
 
     """
     index_dl = http_downloader(index, 'text')
     j_index = json.loads(index_dl)
     datasets = j_index.get('datasets', None)
+    metafiles = j_index.get('metafiles', None)
 
     if datasets == None:
         raise ValueError('The index-document does not contain datasets.')
@@ -74,13 +75,18 @@ def get_files_from_index_json(index: str):
     files = []
 
     for ds in datasets:
-        # iterate the Datesets and add all files to the files
-        # this iteration is done, in hope that the it works if multiple datasets
-        # occur. With one Dataset the result should be the same as datasets[0].get('files')
+        # iterate the datasets and add all files to the files
+        # this iteration is done, in hope that it works if multiple datasets
+        # occur. With one dataset the result should be the same as datasets[0].get('files')
         fs = ds.get('files', None)
         if fs:
             for f in fs:
                 files.append(f)
+
+    if metafiles:
+        for ms in metafiles:
+            # Iterate the list of metafiles in the index.json and append files.
+            files.append(ms)
 
     if files is None:
         raise ValueError('The index-document does not contain files.')
